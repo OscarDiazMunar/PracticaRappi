@@ -30,7 +30,7 @@ public class SplashRappiPruebaPresenter implements ISplashRappiPruebaPresenter, 
         this.splashRappiPruebaActivity = splashRappiPruebaActivity;
     }
 
-    @Override
+  /*  @Override
     public void startSplash(int timeSplash)
     {
         TimerTask task = new TimerTask()
@@ -51,7 +51,46 @@ public class SplashRappiPruebaPresenter implements ISplashRappiPruebaPresenter, 
 
         Timer timer = new Timer();
         timer.schedule(task, timeSplash);
+
+
+    }*/
+
+    @Override
+    public void startSplash(final int timeSplash)
+    {
+        /*TimerTask task = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+// Start the next activity
+                Intent mainIntent = new Intent().setClass(
+                        splashRappiPruebaActivity, ListadoTemasActivity.class);
+                splashRappiPruebaActivity.startActivity(mainIntent);
+
+                // Close the activity so the user won't able to go back this
+                // activity pressing Back button
+                splashRappiPruebaActivity.finish();
+            }
+        };*/
+
+        Thread timerThread = new Thread(){
+            public void run(){
+                try{
+                    sleep(timeSplash);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }finally{
+                    Intent intent = new Intent(splashRappiPruebaActivity,ListadoTemasActivity.class);
+                    splashRappiPruebaActivity.startActivity(intent);
+                }
+            }
+        };
+        timerThread.start();
+
     }
+
+
 
     @Override
     public Animation animation()

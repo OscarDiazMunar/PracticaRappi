@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_border"
+                android:padding="@dimen/corner_content"
+                android:layout_margin="@dimen/corner_content">
 
 
     <ImageView
@@ -46,7 +49,7 @@
         android:text="over 18"
         android:id="@+id/txtOver18"
         android:layout_below="@+id/txtDisplayName"
-        android:layout_toEndOf="@+id/txtDate"/>
+        android:layout_alignStart="@+id/txtDisplayName"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,8 +57,17 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Public description"
         android:id="@+id/txtPublicDescription"
+        android:layout_below="@+id/imgIcon"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Subscribers"
+        android:id="@+id/txtSubscribers"
         android:layout_below="@+id/txtOver18"
-        android:layout_toEndOf="@+id/imgIcon"/>
+        android:layout_alignStart="@+id/txtDisplayName"/>
 
 
 </RelativeLayout>

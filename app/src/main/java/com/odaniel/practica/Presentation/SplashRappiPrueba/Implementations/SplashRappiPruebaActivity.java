@@ -35,9 +35,10 @@ public class SplashRappiPruebaActivity extends BaseActivity implements ISplashRa
         ButterKnife.inject(this);
 
         splashRappiPruebaPresenter = new SplashRappiPruebaPresenter(this);
-        splashRappiPruebaPresenter.startSplash(Constants.Splash.SPLASH_SCREEN_DELAY);
         Animation move = splashRappiPruebaPresenter.animation();
         imgSplashRappi.setAnimation(move);
+        splashRappiPruebaPresenter.startSplash(Constants.Splash.SPLASH_SCREEN_DELAY);
+
         settingToolbar(Constants.ToolBarType.NO_TOOLBAR);
 
     }

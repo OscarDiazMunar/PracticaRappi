@@ -3,6 +3,7 @@ package com.odaniel.practica.Presentation.ListadoTemas.Implementations;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.odaniel.practica.Models.RedditJson.Data;
 import com.odaniel.practica.Models.RedditJson.MainJson;
@@ -14,7 +15,9 @@ import com.odaniel.practica.R;
 import com.odaniel.practica.Repositories.ImageLoader.GlideImageLoader;
 import com.odaniel.practica.Repositories.ImageLoader.ImageLoader;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -29,7 +32,7 @@ public class ListadoTemasActivity extends BaseActivity implements IListadoTemasV
 
     private ListTemasAdapter listTemasAdapter;
     private IListadoTemasPresenter listadoTemasPresenter;
-
+    boolean ready = false;
 
 
     @Override
@@ -40,9 +43,9 @@ public class ListadoTemasActivity extends BaseActivity implements IListadoTemasV
         ButterKnife.inject(this);
         listadoTemasPresenter = new ListadoTemasPresenter(this);
         listadoTemasPresenter.consumeWebServiceReddit();
+
         setupAdapter();
         setupRecyclerView();
-//        hola.getData();
     }
 
     private void setupRecyclerView()
@@ -55,6 +58,7 @@ public class ListadoTemasActivity extends BaseActivity implements IListadoTemasV
     {
         ImageLoader imageLoader = new GlideImageLoader(this);
         listTemasAdapter = new ListTemasAdapter(new ArrayList<Data>(), imageLoader, this);
+        //listTemasAdapter = new ListTemasAdapter(datos, imageLoader, this);
     }
 
 
@@ -77,6 +81,7 @@ public class ListadoTemasActivity extends BaseActivity implements IListadoTemasV
     {
 
         hola = mainJson;
+        ready = true;
         //Log.e("aqui locas", hola.getData().getAfter());
     }
 
@@ -91,4 +96,6 @@ public class ListadoTemasActivity extends BaseActivity implements IListadoTemasV
     {
 
     }
+
+
 }

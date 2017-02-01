@@ -1,7 +1,6 @@
 package com.odaniel.practica.Presentation.ListadoTemas.Adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import com.odaniel.practica.Models.RedditJson.Data;
 import com.odaniel.practica.Presentation.ListadoTemas.Implementations.OnItemClickListener;
 import com.odaniel.practica.R;
 import com.odaniel.practica.Repositories.ImageLoader.ImageLoader;
+import com.odaniel.practica.Utils.Utils;
 
 import java.util.List;
 
@@ -23,6 +23,7 @@ import butterknife.InjectView;
  */
 public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.ViewHolder>
 {
+
 
     private List<Data> dataTemas;
     private ImageLoader imageLoader;
@@ -47,12 +48,18 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
     {
         Data data = dataTemas.get(position);
         holder.setClickListener(data, clickListener);
-
         holder.txtTitle.setText(data.getTitle());
-        holder.txtDate.setText(data.getCreated());
+        holder.txtDate.setText(Utils.created_date(data.getCreated()));
         holder.txtDisplayName.setText(data.getDisplay_name());
-        holder.txtOver18.setText(data.getOver18());
-        holder.txtPublicDescription.setText(Html.fromHtml(data.getDescription_html()));
+        if (data.getOver18().equals("true"))
+        {
+            String over18 = "only 18+";
+            holder.txtOver18.setText(over18);
+        }
+
+        holder.txtPublicDescription.setText(data.getSubmit_text());
+        holder.txtSubscribers.setText(data.getSubscribers());
+        //holder.txtPublicDescription.setText(Html.fromHtml(data.getDescription_html()));
         imageLoader.load(holder.imgIcon, data.getIcon_img());
     }
 
@@ -62,7 +69,7 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
         return dataTemas.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder
     {
         @InjectView(R.id.imgIcon)
         ImageView imgIcon;
@@ -76,13 +83,15 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
         TextView txtOver18;
         @InjectView(R.id.txtPublicDescription)
         TextView txtPublicDescription;
+        @InjectView(R.id.txtSubscribers)
+        TextView txtSubscribers;
         View view;
 
         public ViewHolder(View itemView)
         {
             super(itemView);
             this.view = itemView;
-            ButterKnife.inject(this, view);
+            ButterKnife.inject(this, itemView);
         }
 
         public void setClickListener(final Data data,
@@ -102,5 +111,6 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
     public void add(Data data)
     {
         this.dataTemas.add(data);
+        this.notifyDataSetChanged();
     }
 }
