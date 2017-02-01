@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:layout_width="192dp"
+        android:layout_height="192dp"
+        android:id="@+id/imgIcon"
+        android:src="@drawable/icon1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Title"
+        android:id="@+id/txtTitle"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imgIcon"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Enviado"
+        android:id="@+id/txtDate"
+        android:layout_below="@+id/txtTitle"
+        android:layout_toEndOf="@+id/imgIcon"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Por autor"
+        android:id="@+id/txtDisplayName"
+        android:layout_below="@+id/txtDate"
+        android:layout_toEndOf="@+id/imgIcon"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="over 18"
+        android:id="@+id/txtOver18"
+        android:layout_below="@+id/txtDisplayName"
+        android:layout_toEndOf="@+id/txtDate"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Public description"
+        android:id="@+id/txtPublicDescription"
+        android:layout_below="@+id/txtOver18"
+        android:layout_toEndOf="@+id/imgIcon"/>
+
+
+</RelativeLayout>
