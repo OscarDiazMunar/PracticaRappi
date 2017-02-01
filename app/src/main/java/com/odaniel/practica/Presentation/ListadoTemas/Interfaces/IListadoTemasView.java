@@ -9,6 +9,10 @@ import com.odaniel.practica.Presentation.Base.IBaseView;
  */
 public interface IListadoTemasView extends IBaseView
 {
-    void elobjeto(MainJson mainJson);
+    /**
+     * Add data.
+     *
+     * @param data the data
+     */
     void addData(Data data);
 }

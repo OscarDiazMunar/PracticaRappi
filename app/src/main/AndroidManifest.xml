@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".Presentation.ListadoTemas.Implementations.ListadoTemasActivity">
         </activity>
+        <activity android:name=".Presentation.DetalleTemas.Implementations.DetalleTemasActivity">
+        </activity>
     </application>
 
 </manifest>

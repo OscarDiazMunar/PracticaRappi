@@ -1,5 +1,6 @@
 package com.odaniel.practica.Presentation.ListadoTemas.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.odaniel.practica.Models.RedditJson.Data;
+import com.odaniel.practica.Presentation.ListadoTemas.Implementations.ListadoTemasActivity;
 import com.odaniel.practica.Presentation.ListadoTemas.Implementations.OnItemClickListener;
 import com.odaniel.practica.R;
 import com.odaniel.practica.Repositories.ImageLoader.ImageLoader;
@@ -28,12 +30,14 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
     private List<Data> dataTemas;
     private ImageLoader imageLoader;
     private OnItemClickListener clickListener;
+    private Context context;
 
-    public ListTemasAdapter(List<Data> dataTemas, ImageLoader imageLoader, OnItemClickListener clickListener)
+    public ListTemasAdapter(List<Data> dataTemas, ImageLoader imageLoader, OnItemClickListener clickListener, Context context)
     {
         this.dataTemas = dataTemas;
         this.imageLoader = imageLoader;
         this.clickListener = clickListener;
+        this.context = context;
     }
 
     @Override
@@ -51,14 +55,13 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
         holder.txtTitle.setText(data.getTitle());
         holder.txtDate.setText(Utils.created_date(data.getCreated()));
         holder.txtDisplayName.setText(data.getDisplay_name());
-        if (data.getOver18().equals("true"))
+        if (data.getOver18().equals("false"))
         {
-            String over18 = "only 18+";
-            holder.txtOver18.setText(over18);
+            holder.txtOver18.setText(context.getString(R.string.all_public));
         }
 
-        holder.txtPublicDescription.setText(data.getSubmit_text());
-        holder.txtSubscribers.setText(data.getSubscribers());
+        holder.txtPublicDescription.setText(data.getPublic_description());
+        holder.txtSubscribers.setText(context.getString(R.string.subscribers)+data.getSubscribers());
         //holder.txtPublicDescription.setText(Html.fromHtml(data.getDescription_html()));
         imageLoader.load(holder.imgIcon, data.getIcon_img());
     }

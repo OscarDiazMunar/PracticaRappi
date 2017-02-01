@@ -1,7 +1,6 @@
 package com.odaniel.practica.Utils;
 
 
-
 /**
  * The type Constants.
  */
@@ -31,7 +30,7 @@ public class Constants
         /**
          * The constant DATE_FORMAT.
          */
-        String DATE_FORMAT = "dd/MM/yyyy";
+        String DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
         /**
          * The constant YEAR_KEY.
          */
@@ -86,6 +85,10 @@ public class Constants
          * The constant RESPONSE_JSON.
          */
         String RESPONSE_JSON = "responsejoson";
+        /**
+         * The constant RESPONSE_DATA_CLICK.
+         */
+        String RESPONSE_DATA_CLICK = "responsedataclick";
 
         /**
          * The constan MAX_BYTES
@@ -372,6 +375,9 @@ public class Constants
      */
     public interface ErrorType
     {
+        /**
+         * The constant FAIL_CONNECTION_NO_EXIST.
+         */
         int FAIL_CONNECTION_NO_EXIST = 15;
     }
 }

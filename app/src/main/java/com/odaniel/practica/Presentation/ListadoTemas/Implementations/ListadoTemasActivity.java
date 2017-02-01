@@ -1,5 +1,6 @@
 package com.odaniel.practica.Presentation.ListadoTemas.Implementations;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,17 +24,20 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+/**
+ * The type Listado temas activity.
+ */
 public class ListadoTemasActivity extends BaseActivity implements IListadoTemasView, OnItemClickListener
 {
 
-    MainJson hola = null;
+    /**
+     * The Recycler view temas.
+     */
     @InjectView(R.id.recyclerViewTemas)
     RecyclerView recyclerViewTemas;
 
     private ListTemasAdapter listTemasAdapter;
     private IListadoTemasPresenter listadoTemasPresenter;
-    boolean ready = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,10 +61,8 @@ public class ListadoTemasActivity extends BaseActivity implements IListadoTemasV
     private void setupAdapter()
     {
         ImageLoader imageLoader = new GlideImageLoader(this);
-        listTemasAdapter = new ListTemasAdapter(new ArrayList<Data>(), imageLoader, this);
-        //listTemasAdapter = new ListTemasAdapter(datos, imageLoader, this);
+        listTemasAdapter = new ListTemasAdapter(new ArrayList<Data>(), imageLoader, this, getContext());
     }
-
 
     @Override
     protected void onResume()
@@ -77,15 +79,6 @@ public class ListadoTemasActivity extends BaseActivity implements IListadoTemasV
     }
 
     @Override
-    public void elobjeto(MainJson mainJson)
-    {
-
-        hola = mainJson;
-        ready = true;
-        //Log.e("aqui locas", hola.getData().getAfter());
-    }
-
-    @Override
     public void addData(Data data)
     {
         listTemasAdapter.add(data);
@@ -94,7 +87,7 @@ public class ListadoTemasActivity extends BaseActivity implements IListadoTemasV
     @Override
     public void onItemClick(Data dataTema)
     {
-
+        listadoTemasPresenter.onClickTemaDetalle(dataTema);
     }
 
 

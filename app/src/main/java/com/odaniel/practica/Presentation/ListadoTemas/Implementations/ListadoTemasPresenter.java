@@ -1,5 +1,6 @@
 package com.odaniel.practica.Presentation.ListadoTemas.Implementations;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.odaniel.practica.BuildConfig;
@@ -8,6 +9,7 @@ import com.odaniel.practica.Models.RedditJson.Children;
 import com.odaniel.practica.Models.RedditJson.Data;
 import com.odaniel.practica.Models.RedditJson.MainJson;
 import com.odaniel.practica.Presentation.Base.IBasePresenter;
+import com.odaniel.practica.Presentation.DetalleTemas.Implementations.DetalleTemasActivity;
 import com.odaniel.practica.Presentation.ListadoTemas.Interfaces.IListadoTemasPresenter;
 import com.odaniel.practica.Repositories.Events.BaseErrorEvent;
 import com.odaniel.practica.Repositories.Events.BaseSuccessEvent;
@@ -29,8 +31,12 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
     private BaseErrorEvent baseErrorEvent = new BaseErrorEvent();
     private ErrorData errorData = new ErrorData();
     private HTTPRequestManager<BaseSuccessEvent, BaseErrorEvent> request;
-    private MainJson mainJson;
 
+    /**
+     * Instantiates a new Listado temas presenter.
+     *
+     * @param listadoTemasActivity the listado temas activity
+     */
     public ListadoTemasPresenter(ListadoTemasActivity listadoTemasActivity)
     {
         this.listadoTemasActivity = listadoTemasActivity;
@@ -46,6 +52,14 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
                 BaseSuccessEvent.class,
                 BaseErrorEvent.class);
         request.execute();
+    }
+
+    @Override
+    public void onClickTemaDetalle(Data data)
+    {
+        Intent intent = new Intent(listadoTemasActivity, DetalleTemasActivity.class);
+        intent.putExtra(Constants.Connection.RESPONSE_DATA_CLICK, data);
+        listadoTemasActivity.startActivity(intent);
     }
 
     @Override
@@ -72,6 +86,11 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
         eventBus.unregister(this);
     }
 
+    /**
+     * On event.
+     *
+     * @param baseSuccessEvent the base success event
+     */
     @EventBusHook
     public void onEvent(BaseSuccessEvent baseSuccessEvent)
     {
@@ -82,19 +101,12 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
                 Log.e("el consumo", baseSuccessEvent.getResponse());
                 mainJsonResponse = ReadAssetsHelper.getMainJsonResponse(baseSuccessEvent.getResponse());
                 //Log.e("aqui el otro", mainJsonResponse.getData().getChildren().getData().getName());
-                mainJson = mainJsonResponse;
-
-                listadoTemasActivity.elobjeto(mainJsonResponse);
 
                 break;
             case Constants.CodResponseWebservice.RESPONSE_OK:
                 Log.e("el consumo existe", baseSuccessEvent.getResponse());
                 mainJsonResponse = ReadAssetsHelper.getMainJsonResponse(baseSuccessEvent.getResponse());
-                mainJson = mainJsonResponse;
                 fillListadapter(mainJsonResponse);
-                listadoTemasActivity.elobjeto(mainJsonResponse);
-                //responseValidateUserParcelable = ReadAssetsHelper.getListResponseValidateUserUserParcelable(baseSuccessEvent.getResponse());
-                //typeAlertResponse(responseValidateUserParcelable);
                 break;
             default:
                 break;
@@ -110,6 +122,11 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
 
     }
 
+    /**
+     * On event.
+     *
+     * @param baseErrorEvent the base error event
+     */
     @EventBusHook
     public void onEvent(BaseErrorEvent baseErrorEvent)
     {

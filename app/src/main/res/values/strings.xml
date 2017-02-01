@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">Practica</string>
     <string name="error_title">Error</string>
+    <!--public-->
+    <string name="all_public">all public</string>
+    <string name="over_18">only 18+</string>
+    <string name="subscribers">Subscribers: </string>
+    <!--Dummys-->
+    <string name="title">title</string>
+    <string name="author">author</string>
+    <string name="created">created</string>
+    <string name="public_description">public description</string>
+    <string name="spoilers">spoilers</string>
+    <string name="links">Links</string>
+    <string name="header">header</string>
+
 </resources>

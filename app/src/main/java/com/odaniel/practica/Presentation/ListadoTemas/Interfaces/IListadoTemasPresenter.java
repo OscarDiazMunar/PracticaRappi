@@ -1,5 +1,6 @@
 package com.odaniel.practica.Presentation.ListadoTemas.Interfaces;
 
+import com.odaniel.practica.Models.RedditJson.Data;
 import com.odaniel.practica.Models.RedditJson.MainJson;
 import com.odaniel.practica.Presentation.Base.IBasePresenter;
 
@@ -8,6 +9,9 @@ import com.odaniel.practica.Presentation.Base.IBasePresenter;
  */
 public interface IListadoTemasPresenter extends IBasePresenter
 {
+    /**
+     * Consume web service reddit.
+     */
     void consumeWebServiceReddit();
-    
+    void onClickTemaDetalle(Data data);
 }

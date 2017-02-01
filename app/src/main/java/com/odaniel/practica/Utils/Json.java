@@ -5,6 +5,9 @@ import com.google.gson.GsonBuilder;
 
 import java.lang.reflect.Type;
 
+/**
+ * The type Json.
+ */
 public final class Json
 {
     /**
@@ -43,11 +46,13 @@ public final class Json
     }
 
     /**
+     * De serialize list t.
+     *
+     * @param <T>        class
      * @param jsonString json string
      * @param type       type class
-     * @param <T>        class
      * @return object deserialize
-     * @throws ClassNotFoundException
+     * @throws ClassNotFoundException the class not found exception
      */
     public static <T> T deSerializeList(String jsonString, Type type) throws ClassNotFoundException
     {
