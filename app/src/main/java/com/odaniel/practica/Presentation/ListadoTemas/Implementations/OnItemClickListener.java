@@ -7,5 +7,10 @@ import com.odaniel.practica.Models.RedditJson.Data;
  */
 public interface OnItemClickListener
 {
+    /**
+     * On item click.
+     *
+     * @param dataTema the data tema
+     */
     void onItemClick(Data dataTema);
 }

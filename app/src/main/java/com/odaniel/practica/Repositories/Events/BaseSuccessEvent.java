@@ -9,6 +9,28 @@ public class BaseSuccessEvent
 {
     private String response;
 
+    private int typeResponse;
+
+    /**
+     * Gets type response.
+     *
+     * @return the type response
+     */
+    public int getTypeResponse()
+    {
+        return typeResponse;
+    }
+
+    /**
+     * Sets type response.
+     *
+     * @param typeResponse the type response
+     */
+    public void setTypeResponse(int typeResponse)
+    {
+        this.typeResponse = typeResponse;
+    }
+
     /**
      * Gets response.
      *

@@ -5,7 +5,7 @@ import com.odaniel.practica.Presentation.Base.BaseModel;
 /**
  * The type Response.
  *
- * @author by Lmartinez on 25/07/2016.
+ * @author by Odiaz on 25/07/2016.
  */
 public class Response extends BaseModel
 {

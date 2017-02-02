@@ -2,9 +2,11 @@ package com.odaniel.practica.Presentation.ListadoTemas.Implementations;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.odaniel.practica.Models.RedditJson.Data;
 import com.odaniel.practica.Models.RedditJson.MainJson;
@@ -15,7 +17,10 @@ import com.odaniel.practica.Presentation.ListadoTemas.Interfaces.IListadoTemasVi
 import com.odaniel.practica.R;
 import com.odaniel.practica.Repositories.ImageLoader.GlideImageLoader;
 import com.odaniel.practica.Repositories.ImageLoader.ImageLoader;
+import com.odaniel.practica.Utils.Constants;
+import com.odaniel.practica.Utils.Utils;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,11 +50,21 @@ public class ListadoTemasActivity extends BaseActivity implements IListadoTemasV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listado_temas);
         ButterKnife.inject(this);
-        listadoTemasPresenter = new ListadoTemasPresenter(this);
-        listadoTemasPresenter.consumeWebServiceReddit();
 
+
+        listadoTemasPresenter = new ListadoTemasPresenter(this);
+        listadoTemasPresenter.onCreate();
         setupAdapter();
         setupRecyclerView();
+
+        if (Utils.isNetworkAvailable(this))
+        {
+            listadoTemasPresenter.consumeWebServiceReddit();
+        }
+        else
+        {
+            listadoTemasPresenter.loadDataoffline();
+        }
     }
 
     private void setupRecyclerView()
@@ -82,6 +97,17 @@ public class ListadoTemasActivity extends BaseActivity implements IListadoTemasV
     public void addData(Data data)
     {
         listTemasAdapter.add(data);
+    }
+
+    @Override
+    public void showDialogErrorNoInternetOrNetwork(String title, String message)
+    {
+        showDialog(2,
+                title,
+                message,
+                Constants.Dialog.OK_BUTTON,
+                null,
+                Constants.Connection.NO_INTERNET_NETWORK);
     }
 
     @Override

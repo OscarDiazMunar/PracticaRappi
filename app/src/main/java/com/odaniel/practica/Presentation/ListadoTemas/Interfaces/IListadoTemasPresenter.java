@@ -13,5 +13,16 @@ public interface IListadoTemasPresenter extends IBasePresenter
      * Consume web service reddit.
      */
     void consumeWebServiceReddit();
+
+    /**
+     * Load dataoffline.
+     */
+    void loadDataoffline();
+
+    /**
+     * On click tema detalle.
+     *
+     * @param data the data
+     */
     void onClickTemaDetalle(Data data);
 }

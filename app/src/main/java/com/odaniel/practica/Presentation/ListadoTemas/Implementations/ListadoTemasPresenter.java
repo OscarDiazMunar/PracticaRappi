@@ -17,6 +17,7 @@ import com.odaniel.practica.Repositories.Events.EventBusHook;
 import com.odaniel.practica.Repositories.Managers.HTTPRequestManager;
 import com.odaniel.practica.Utils.Constants;
 import com.odaniel.practica.Utils.ReadAssetsHelper;
+import com.odaniel.practica.Utils.Utils;
 
 import de.greenrobot.event.EventBus;
 
@@ -29,6 +30,7 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
     private ListadoTemasActivity listadoTemasActivity;
     private EventBus eventBus = EventBus.getDefault();
     private BaseErrorEvent baseErrorEvent = new BaseErrorEvent();
+    private BaseSuccessEvent baseSuccessEvent = new BaseSuccessEvent();
     private ErrorData errorData = new ErrorData();
     private HTTPRequestManager<BaseSuccessEvent, BaseErrorEvent> request;
 
@@ -55,6 +57,28 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
     }
 
     @Override
+    public void loadDataoffline()
+    {
+        String lineJson = Utils.leerFicheroMemoriaInterna(listadoTemasActivity, Constants.FilesName.FILE_JSON);
+        Log.e("el file", lineJson);
+        if (!lineJson.equals("error"))
+        {
+            baseSuccessEvent.setTypeResponse(1);
+            baseSuccessEvent.setResponse(lineJson);
+            eventBus.post(baseSuccessEvent);
+        }
+        else
+        {
+            errorData.setErrorType(0);
+            errorData.setMessage(Constants.Connection.NO_INTERNET_FIRST);
+            baseErrorEvent.setErrorData(errorData);
+            eventBus.post(baseErrorEvent);
+        }
+
+
+    }
+
+    @Override
     public void onClickTemaDetalle(Data data)
     {
         Intent intent = new Intent(listadoTemasActivity, DetalleTemasActivity.class);
@@ -65,6 +89,7 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
     @Override
     public void onCreate()
     {
+        eventBus.register(this);
 
     }
 
@@ -77,7 +102,7 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
     @Override
     public void onResume()
     {
-        eventBus.register(this);
+        //eventBus.register(this);
     }
 
     @Override
@@ -95,29 +120,38 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
     public void onEvent(BaseSuccessEvent baseSuccessEvent)
     {
         MainJson mainJsonResponse;
-        switch (request.getResponseCode())
+        switch (baseSuccessEvent.getTypeResponse())
         {
-            case Constants.CodResponseWebservice.RESPONSE_NOOK:
-                Log.e("el consumo", baseSuccessEvent.getResponse());
-                mainJsonResponse = ReadAssetsHelper.getMainJsonResponse(baseSuccessEvent.getResponse());
-                //Log.e("aqui el otro", mainJsonResponse.getData().getChildren().getData().getName());
-
+            case 0:
+                switch (request.getResponseCode())
+                {
+                    case Constants.CodResponseWebservice.RESPONSE_NOOK:
+                        Log.e("el consumo", baseSuccessEvent.getResponse());
+                        mainJsonResponse = ReadAssetsHelper.getMainJsonResponse(baseSuccessEvent.getResponse());
+                        errorData.setErrorType(0);
+                        errorData.setMessage(Constants.Connection.NO_CONNECTION);
+                        baseErrorEvent.setErrorData(errorData);
+                        eventBus.post(baseErrorEvent);
+                        break;
+                    case Constants.CodResponseWebservice.RESPONSE_OK:
+                        Log.e("el consumo existe", baseSuccessEvent.getResponse());
+                        mainJsonResponse = ReadAssetsHelper.getMainJsonResponse(baseSuccessEvent.getResponse());
+                        Utils.grabarAchivo(listadoTemasActivity, baseSuccessEvent.getResponse(), Constants.FilesName.FILE_JSON);
+                        fillListadapter(mainJsonResponse);
+                        break;
+                    default:
+                        break;
+                }
                 break;
-            case Constants.CodResponseWebservice.RESPONSE_OK:
-                Log.e("el consumo existe", baseSuccessEvent.getResponse());
+            case 1:
+                listadoTemasActivity.showDialogErrorNoInternetOrNetwork(Constants.Connection.NO_INTERNET_NETWORK,
+                                                                        Constants.Connection.NO_INTERNET_LOAD_DATA);
                 mainJsonResponse = ReadAssetsHelper.getMainJsonResponse(baseSuccessEvent.getResponse());
+
                 fillListadapter(mainJsonResponse);
                 break;
             default:
                 break;
-        }
-    }
-
-    private void fillListadapter(MainJson mainJsonResponse)
-    {
-        for(Children children : mainJsonResponse.getData().getChildren())
-        {
-            listadoTemasActivity.addData(children.getData());
         }
 
     }
@@ -130,6 +164,28 @@ public class ListadoTemasPresenter implements IListadoTemasPresenter, IBasePrese
     @EventBusHook
     public void onEvent(BaseErrorEvent baseErrorEvent)
     {
+        switch (baseErrorEvent.getErrorData().getErrorType())
+        {
+            case Constants.ErrorType.NO_DATA_LOAD:
+                listadoTemasActivity.showDialogErrorNoInternetOrNetwork(Constants.Connection.NO_INTERNET_NETWORK,
+                                                                        Constants.Connection.NO_INTERNET_FIRST);
+                break;
+            case Constants.ErrorType.FAIL_CONNECTION_NO_EXIST:
+                listadoTemasActivity.showDialogErrorNoInternetOrNetwork(Constants.Connection.NO_CONNECTION,
+                        Constants.Connection.NO_CONNECTION);
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    private void fillListadapter(MainJson mainJsonResponse)
+    {
+        for(Children children : mainJsonResponse.getData().getChildren())
+        {
+            listadoTemasActivity.addData(children.getData());
+        }
 
     }
 }

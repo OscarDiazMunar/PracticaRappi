@@ -68,8 +68,8 @@ public class HTTPRequestManager<Success extends BaseSuccessEvent, Error extends 
     }
 
     private void addJSONHeaders() {
-        addHeader("Accept", "application/tipodocumento");
-        addHeader("Content-type", "application/tipodocumento");
+        addHeader("Accept", "application/json");
+        addHeader("Content-type", "application/json");
     }
 
     private void setListeners() {
@@ -80,6 +80,7 @@ public class HTTPRequestManager<Success extends BaseSuccessEvent, Error extends 
                 try {
                     Success res = successClass.newInstance();
                     res.setResponse(response.toString());
+                    res.setTypeResponse(0);
                     //Log.e("el repsonse", response.toString());
                     eventBus.post(res);
                 } catch (Exception e) {

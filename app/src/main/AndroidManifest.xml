@@ -20,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Presentation.ListadoTemas.Implementations.ListadoTemasActivity">
+        <activity android:name=".Presentation.ListadoTemas.Implementations.ListadoTemasActivity"
+                  android:configChanges="screenSize|orientation">
         </activity>
         <activity android:name=".Presentation.DetalleTemas.Implementations.DetalleTemasActivity">
         </activity>

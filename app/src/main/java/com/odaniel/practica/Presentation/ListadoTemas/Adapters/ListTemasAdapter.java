@@ -32,6 +32,14 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
     private OnItemClickListener clickListener;
     private Context context;
 
+    /**
+     * Instantiates a new List temas adapter.
+     *
+     * @param dataTemas     the data temas
+     * @param imageLoader   the image loader
+     * @param clickListener the click listener
+     * @param context       the context
+     */
     public ListTemasAdapter(List<Data> dataTemas, ImageLoader imageLoader, OnItemClickListener clickListener, Context context)
     {
         this.dataTemas = dataTemas;
@@ -62,7 +70,6 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
 
         holder.txtPublicDescription.setText(data.getPublic_description());
         holder.txtSubscribers.setText(context.getString(R.string.subscribers)+data.getSubscribers());
-        //holder.txtPublicDescription.setText(Html.fromHtml(data.getDescription_html()));
         imageLoader.load(holder.imgIcon, data.getIcon_img());
     }
 
@@ -72,24 +79,56 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
         return dataTemas.size();
     }
 
+    /**
+     * The type View holder.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
+        /**
+         * The Img icon.
+         */
         @InjectView(R.id.imgIcon)
         ImageView imgIcon;
+        /**
+         * The Txt title.
+         */
         @InjectView(R.id.txtTitle)
         TextView txtTitle;
+        /**
+         * The Txt date.
+         */
         @InjectView(R.id.txtDate)
         TextView txtDate;
+        /**
+         * The Txt display name.
+         */
         @InjectView(R.id.txtDisplayName)
         TextView txtDisplayName;
+        /**
+         * The Txt over 18.
+         */
         @InjectView(R.id.txtOver18)
         TextView txtOver18;
+        /**
+         * The Txt public description.
+         */
         @InjectView(R.id.txtPublicDescription)
         TextView txtPublicDescription;
+        /**
+         * The Txt subscribers.
+         */
         @InjectView(R.id.txtSubscribers)
         TextView txtSubscribers;
+        /**
+         * The View.
+         */
         View view;
 
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param itemView the item view
+         */
         public ViewHolder(View itemView)
         {
             super(itemView);
@@ -97,6 +136,12 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
             ButterKnife.inject(this, itemView);
         }
 
+        /**
+         * Sets click listener.
+         *
+         * @param data     the data
+         * @param listener the listener
+         */
         public void setClickListener(final Data data,
                                      final OnItemClickListener listener)
         {
@@ -111,6 +156,11 @@ public class ListTemasAdapter extends RecyclerView.Adapter<ListTemasAdapter.View
         }
     }
 
+    /**
+     * Add.
+     *
+     * @param data the data
+     */
     public void add(Data data)
     {
         this.dataTemas.add(data);

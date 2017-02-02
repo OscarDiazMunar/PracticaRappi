@@ -18,25 +18,55 @@ import com.odaniel.practica.Utils.Constants;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+/**
+ * The type Detalle temas activity.
+ */
 public class DetalleTemasActivity extends BaseActivity implements IDetalleTemasView
 {
 
+    /**
+     * The Img banner.
+     */
     @InjectView(R.id.imgBanner)
     ImageView imgBanner;
+    /**
+     * The Txt title detalle.
+     */
     @InjectView(R.id.txtTitleDetalle)
     TextView txtTitleDetalle;
+    /**
+     * The Txt public description detalle.
+     */
     @InjectView(R.id.txtPublicDescriptionDetalle)
     TextView txtPublicDescriptionDetalle;
+    /**
+     * The Txt subscribers detalle d.
+     */
     @InjectView(R.id.txtSubscribersDetalleD)
     TextView txtSubscribersDetalleD;
+    /**
+     * The Txt spoilers d.
+     */
     @InjectView(R.id.txtSpoilersD)
     TextView txtSpoilersD;
+    /**
+     * The Txt links d.
+     */
     @InjectView(R.id.txtLinksD)
     TextView txtLinksD;
+    /**
+     * The Img icon detalle.
+     */
     @InjectView(R.id.imgIconDetalle)
     ImageView imgIconDetalle;
+    /**
+     * The Txt header.
+     */
     @InjectView(R.id.txtHeader)
     TextView txtHeader;
+    /**
+     * The Img header.
+     */
     @InjectView(R.id.imgHeader)
     ImageView imgHeader;
 

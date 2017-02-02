@@ -15,4 +15,9 @@ public interface IListadoTemasView extends IBaseView
      * @param data the data
      */
     void addData(Data data);
+
+    /**
+     * Show dialog error no internet or network.
+     */
+    void showDialogErrorNoInternetOrNetwork(String title, String message);
 }

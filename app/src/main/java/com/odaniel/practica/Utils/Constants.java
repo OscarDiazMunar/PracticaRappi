@@ -30,7 +30,7 @@ public class Constants
         /**
          * The constant DATE_FORMAT.
          */
-        String DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
+        String DATE_FORMAT = "dd-MM-yyyy";
         /**
          * The constant YEAR_KEY.
          */
@@ -80,6 +80,15 @@ public class Constants
          * The constant NO_INTERNET_NETWORK.
          */
         String NO_INTERNET_NETWORK = "No hay conexion a internet o datos";
+        /**
+         * The constant NO_INTERNET_FIRST.
+         */
+        String NO_INTERNET_FIRST = "No hay datos previamente cargados";
+        /**
+         * The constant NO_INTERNET_LOAD_DATA.
+         */
+        String NO_INTERNET_LOAD_DATA = "Hay datos previamente cargados";
+
 
         /**
          * The constant RESPONSE_JSON.
@@ -333,23 +342,6 @@ public class Constants
         String SELECTED_OPTION = "selectedOption";
     }
 
-
-    /**
-     * The interface Urlservices.
-     */
-    public interface URLSERVICES
-    {
-        /**
-         * The constant CONSULTA_SERVICIO_NO_EXISTE.
-         */
-        String CONSULTA_SERVICIO_URL = "http://10.201.1.13:";
-        /**
-         * The constant COMPLEMENTO.
-         */
-        String COMPLEMENTO = "/api/prospect/";
-
-    }
-
     /**
      * The interface Cod response webservice.
      */
@@ -375,10 +367,16 @@ public class Constants
      */
     public interface ErrorType
     {
+        int NO_DATA_LOAD = 0;
         /**
          * The constant FAIL_CONNECTION_NO_EXIST.
          */
         int FAIL_CONNECTION_NO_EXIST = 15;
+    }
+
+    public interface FilesName
+    {
+        String FILE_JSON = "fileJson.txt";
     }
 }
 
